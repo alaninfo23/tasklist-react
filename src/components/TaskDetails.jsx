@@ -1,10 +1,8 @@
-import { logDOM } from '@testing-library/react';
 import React from 'react';
-import { CgLaptop } from 'react-icons/cg';
 import { useHistory, useParams } from 'react-router-dom';
 import Button from './Button';
 
-import './AddTask.css';
+import './TaskDetails.css';
 
 const TaskDetails = () => {
     const params = useParams();
