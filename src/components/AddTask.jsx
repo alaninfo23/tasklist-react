@@ -21,6 +21,7 @@ const AddTask = ({ handleTaskAddition }) => {
             <input 
                 onChange={handleInputChange}
                 value={inputData}
+                data-testid='INPUT_TASK'
                 className='add-task-input' 
                 type='text' 
             />
