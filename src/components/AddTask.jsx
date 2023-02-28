@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import Button from './Button';
 
-import './AddTask.css'
+import '../css/AddTask.css'
 
 /* Comando sfc cria uma função */
 const AddTask = ({ handleTaskAddition }) => {
