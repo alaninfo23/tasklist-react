@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import App from "../../App";
 import userEvent, {} from '@testing-library/user-event';
 
@@ -51,7 +51,7 @@ describe("Testes", () => {
 
   it.skip('validar se quando deleto uma tarefa ela está sumindo da lista', () => {
     render(<App />);
-    const taskMsg = 'testes de integração';
+    const taskMsg = `testes de integração ${Date.now()}`;
 
     const input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
@@ -59,11 +59,13 @@ describe("Testes", () => {
     const add_task = screen.getByTestId('ADD_BUTTON');
     userEvent.click(add_task);
 
-    const del_task = screen.getAllByTestId('DELETE_TASK');
+   
     //userEvent.click(del_task[0]);
     //const test = test1.indexOf(del_task.toHaveTextContent)
-    const tasks = screen.getByText(taskMsg);
-    expect(tasks).not.toBeInTheDocument();
+    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const del_task = task.getByTestId('DELETE_TASK');
+    userEvent.click(del_task);
+    expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).not.toBeInTheDocument();
   });
 
 
