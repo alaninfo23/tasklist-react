@@ -22,7 +22,8 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
 
             <div className='buttons-container'>
                 <button 
-                    className='remove-task-button' 
+                    className='remove-task-button'
+                    data-testid='DELETE_TASK'
                     onClick={ () => handleTaskDeletion(task.id)}
                 >
                   <CgClose />
@@ -39,5 +40,4 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
     )
     //return <div className='task-container'>{task.title}</div>;
 }
- 
 export default Task;
