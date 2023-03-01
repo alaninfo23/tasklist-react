@@ -10,7 +10,8 @@ const Tasks = ({ tasks, handleTaskClick, handleTaskDeletion }) => {
                 key={task.id}
                 task={task} 
                 handleTaskClick={handleTaskClick} 
-                handleTaskDeletion={handleTaskDeletion} 
+                handleTaskDeletion={handleTaskDeletion}
+                data-testid='task-list' 
                 />
             ))}
         </>

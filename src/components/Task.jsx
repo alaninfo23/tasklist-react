@@ -3,7 +3,7 @@ import { CgClose, CgInfo } from 'react-icons/cg';
 import {useHistory} from 'react-router-dom';
 
 
-import './Task.css';
+import '../css/Task.css';
 
 const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
     const history = useHistory();
@@ -22,7 +22,8 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
 
             <div className='buttons-container'>
                 <button 
-                    className='remove-task-button' 
+                    className='remove-task-button'
+                    data-testid='DELETE_TASK'
                     onClick={ () => handleTaskDeletion(task.id)}
                 >
                   <CgClose />
@@ -39,5 +40,4 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
     )
     //return <div className='task-container'>{task.title}</div>;
 }
- 
 export default Task;

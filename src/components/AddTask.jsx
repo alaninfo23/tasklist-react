@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import Button from './Button';
 
-import './AddTask.css'
+import '../css/AddTask.css'
 
 /* Comando sfc cria uma função */
 const AddTask = ({ handleTaskAddition }) => {
@@ -21,6 +21,7 @@ const AddTask = ({ handleTaskAddition }) => {
             <input 
                 onChange={handleInputChange}
                 value={inputData}
+                data-testid='INPUT_TASK'
                 className='add-task-input' 
                 type='text' 
             />

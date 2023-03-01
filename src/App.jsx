@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 import TaskDetails from "./components/TaskDetails";
-import "./App.css"
+import "./css/App.css"
 
 /* O componente APP é pai do componente que retorna
 o Tasks(componente filho) */
