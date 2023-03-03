@@ -15,9 +15,14 @@ const TaskDetails = () => {
     return ( 
         <>
             <div className="back-button-container">
-                <Button onClick={handleBackButtonClick}>Voltar</Button>
+                <Button 
+                testId='BACK_BUTTON'
+                onClick={handleBackButtonClick}>
+                Voltar
+                </Button>
             </div>
-            <div className="task-details-container">
+            <div className="task-details-container"
+            data-testid='TASK_TITLE'>
             <h2>{params.taskTitle}</h2>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit volu
                     doloremque laudantium, totam rem aperiam, eaque ipsa q
