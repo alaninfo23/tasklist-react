@@ -65,6 +65,20 @@ describe("Testes", () => {
     expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).not.toBeInTheDocument();
   });
 
+  it('User should not be able to enter an empty task.', () => {
+    render(<App />);
+    const taskMsg = '';
+
+    const input = screen.getByTestId('INPUT_TASK');
+    userEvent.clear(input);
+    userEvent.type(input, taskMsg);
+    const addTask = screen.getByTestId('ADD_BUTTON');
+    userEvent.click(addTask);
+   
+    expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
+
+  });
+  
   it('Patient should be able to open task details.', () => {
     render(<App />);
     const taskMsg = `testes de integração ${Date.now()}`;
@@ -84,6 +98,5 @@ describe("Testes", () => {
     expect(screen.getByTestId('BACK_BUTTON')).toHaveTextContent(backButton);
 
   });
-
 
 });
