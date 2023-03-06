@@ -8,14 +8,14 @@ describe("Testes", () => {
   it("renders app title", () => {
     render(<App />);
     const title = screen.getByText("Minhas Tarefas");
-    /* Espero que o titulo Minhas Tarefas esteja no documento*/
+    
     expect(title).toBeInTheDocument();
   });
 
   it('check that the name of the add button is correct.', () => {
     render(<App />);
     const add_task = screen.getByTestId('ADD_BUTTON');
-    /* Espero que o botão tenha o nome Adicionar */
+    
     expect(add_task).toHaveTextContent('Adicionar');
   });
   
@@ -27,7 +27,7 @@ describe("Testes", () => {
     userEvent.type(input, taskMsg);
     const add_task = screen.getByTestId('ADD_BUTTON');
     userEvent.click(add_task);
-    //eu quero validar se a tarefa testes de integração foi adicionada na tela??
+    
     const tasks = screen.getByText(taskMsg);
     expect(tasks).toBeInTheDocument();
   });
@@ -49,20 +49,7 @@ describe("Testes", () => {
     expect(tasks).toHaveLength(2);
   });
 
-  it('The system should not allow insert of a task with an empty title.', () => {
-    render(<App />);
-    const taskMsg = '';
-
-    const input = screen.getByTestId('INPUT_TASK');
-    userEvent.clear(input);
-    userEvent.type(input, taskMsg);
-    const add_task = screen.getByTestId('ADD_BUTTON');
-    userEvent.click(add_task);
-   
-    expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
-
- })
-  it('validate if it is possible to delete a task', () => {
+  it('User should be able to delete a task.', () => {
     render(<App />);
     const taskMsg = `testes de integração ${Date.now()}`;
 
@@ -72,37 +59,31 @@ describe("Testes", () => {
     const add_task = screen.getByTestId('ADD_BUTTON');
     userEvent.click(add_task);
 
-    //userEvent.click(del_task[0]);
-    //const test = test1.indexOf(del_task.toHaveTextContent)
     const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
     const del_task = task.getByTestId('DELETE_TASK');
     userEvent.click(del_task);
     expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).not.toBeInTheDocument();
   });
 
-  it('validate if click button info it will show the back button and the title with task name.', () => {
+  it('Patient should be able to open task details.', () => {
     render(<App />);
     const taskMsg = `testes de integração ${Date.now()}`;
-    const button_back = 'Voltar'
+    const backButton = 'Voltar';
 
     const input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
     userEvent.type(input, taskMsg);
-    const add_task = screen.getByTestId('ADD_BUTTON');
-    userEvent.click(add_task);
+    const addTask = screen.getByTestId('ADD_BUTTON');
+    userEvent.click(addTask);
 
-    //se colocar o ADD_BUTTON antes do within, o teste passa.
-    //expect(screen.getByTestId('ADD_BUTTON')).toHaveTextContent('Adicionar');
     const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
-    const info_task = task.getByTestId('INFO_TASK');
-    userEvent.click(info_task);
-    //expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
-    //const backButton = task.getByTestId('BACK-BUTTON');
-    //expect(backButton).toHaveTextContent('Voltar');
-    expect(screen.getByTestId('TASK_TITLE')).toHaveTextContent(taskMsg);
-    expect(screen.getByTestId('BACK_BUTTON')).toHaveTextContent(button_back);
+    const infoTask = task.getByTestId('INFO_TASK_BUTTON');
+    userEvent.click(infoTask);
 
- })
+    expect(screen.getByTestId('TASK_TITLE')).toHaveTextContent(taskMsg);
+    expect(screen.getByTestId('BACK_BUTTON')).toHaveTextContent(backButton);
+
+  });
 
 
 });

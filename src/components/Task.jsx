@@ -17,14 +17,16 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
             style={ task.completed ? { borderLeft: '6px solid chartreuse' } : {}}
             data-testid={`TASK_CONTAINER_${task.title}`}
         >
-            <div className='task-title' onClick={() => handleTaskClick(task.id)}>
+            <div className='task-title' 
+            data-testeid='TASK_NAME' 
+            onClick={() => handleTaskClick(task.id)}>
                 {task.title}
             </div>
 
             <div className='buttons-container'>
                 <button 
                     className='remove-task-button'
-                    data-testid='DELETE_TASK'
+                    data-testId='DELETE_TASK'
                     onClick={ () => handleTaskDeletion(task.id)}
                 >
                   <CgClose />
@@ -32,7 +34,7 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
 
                 <button 
                   className='see-task-details-button'
-                  data-testeid='INFO_TASK'
+                  data-testId='INFO_TASK_BUTTON'
                   onClick={handleTaskDetailsClick}
                 >
                   <CgInfo />
