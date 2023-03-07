@@ -18,7 +18,7 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
             data-testid={`TASK_CONTAINER_${task.title}`}
         >
             <div className='task-title' 
-            data-testeid='TASK_NAME' 
+            data-testid='TASK_NAME' 
             onClick={() => handleTaskClick(task.id)}>
                 {task.title}
             </div>
@@ -26,7 +26,7 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
             <div className='buttons-container'>
                 <button 
                     className='remove-task-button'
-                    data-testId='DELETE_TASK'
+                    data-testid='DELETE_TASK'
                     onClick={ () => handleTaskDeletion(task.id)}
                 >
                   <CgClose />
@@ -34,7 +34,7 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
 
                 <button 
                   className='see-task-details-button'
-                  data-testId='INFO_TASK_BUTTON'
+                  data-testid='INFO_TASK_BUTTON'
                   onClick={handleTaskDetailsClick}
                 >
                   <CgInfo />
