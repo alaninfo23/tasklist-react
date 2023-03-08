@@ -65,7 +65,7 @@ describe("Testes", () => {
     expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).not.toBeInTheDocument();
   });
 
-  it('User should not be able to enter an empty task.', () => {
+  it('User should be able to enter an empty task.', () => {
     render(<App />);
     const taskMsg = '';
 
