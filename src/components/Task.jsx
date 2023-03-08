@@ -17,7 +17,9 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
             style={ task.completed ? { borderLeft: '6px solid chartreuse' } : {}}
             data-testid={`TASK_CONTAINER_${task.title}`}
         >
-            <div className='task-title' onClick={() => handleTaskClick(task.id)}>
+            <div className='task-title' 
+            data-testid='TASK_NAME' 
+            onClick={() => handleTaskClick(task.id)}>
                 {task.title}
             </div>
 
@@ -31,7 +33,9 @@ const Task = ({ task, handleTaskClick, handleTaskDeletion }) => {
                 </button>
 
                 <button 
-                  className='see-task-details-button' onClick={handleTaskDetailsClick}
+                  className='see-task-details-button'
+                  data-testid='INFO_TASK_BUTTON'
+                  onClick={handleTaskDetailsClick}
                 >
                   <CgInfo />
                 </button>
