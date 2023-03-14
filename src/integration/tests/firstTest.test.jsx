@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { prettyDOM, render, screen, within } from "@testing-library/react";
 import App from "../../App";
 import userEvent, {} from '@testing-library/user-event';
 
@@ -79,12 +79,32 @@ describe("Testes", () => {
 
   });
   
+  it('User should be able to complete task', () => {
+    render(<App />);
+    const taskMsg = `testes de integração ${Date.now()}`;
+
+    const input = screen.getByTestId('INPUT_TASK');
+    userEvent.clear(input);
+    userEvent.type(input, taskMsg);
+    const addTask = screen.getByTestId('ADD_BUTTON');
+    userEvent.click(addTask);
+  
+    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));    
+    const completeTask = task.getByTestId('TASK_NAME')
+  
+    userEvent.click(completeTask);
+    expect((screen.getByTestId(`TASK_CONTAINER_${taskMsg}`))).toHaveStyle({ borderLeft: '6px solid chartreuse'});
+
+    userEvent.click(completeTask);
+    expect((screen.getByTestId(`TASK_CONTAINER_${taskMsg}`))).not.toHaveStyle({ borderLeft: '6px solid chartreuse'});
+  });
+
   it('Patient should be able to open task details.', () => {
     render(<App />);
     const taskMsg = `testes de integração ${Date.now()}`;
-    const backButton = 'Voltar';
+    const backButtonName = 'Voltar';
 
-    const input = screen.getByTestId('INPUT_TASK');
+    let input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
     userEvent.type(input, taskMsg);
     const addTask = screen.getByTestId('ADD_BUTTON');
@@ -95,7 +115,13 @@ describe("Testes", () => {
     userEvent.click(infoTask);
 
     expect(screen.getByTestId('TASK_TITLE')).toHaveTextContent(taskMsg);
-    expect(screen.getByTestId('BACK_BUTTON')).toHaveTextContent(backButton);
+    const backButton = screen.getByTestId('BACK_BUTTON');
+    expect(backButton).toHaveTextContent(backButtonName);
+    userEvent.click(backButton);
+
+    //console.log(prettyDOM(screen.));
+    //input = screen.findByTestId('INPUT_TASK');
+    //expect(input).toBeInTheDocument();
 
   });
 
