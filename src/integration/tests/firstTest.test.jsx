@@ -73,14 +73,18 @@ describe("Test project in the app task list.", () => {
     userEvent.type(input, taskMsg);
     const addTask = screen.getByTestId("ADD_BUTTON");
     userEvent.click(addTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)
+    ).toBeInTheDocument();
   });
+
+  it("User should be able to complete task", () => {
+    render(<App />);
 
   it("User should be able to complete task", () => {
     render(<App />);
     const taskMsg = `testes de integração ${Date.now()}`;
     const input = screen.getByTestId("INPUT_TASK");
-
     userEvent.clear(input);
     userEvent.type(input, taskMsg);
     const addTask = screen.getByTestId("ADD_BUTTON");
@@ -97,7 +101,7 @@ describe("Test project in the app task list.", () => {
     });
   });
 
-  it("User should be able to delete only task selected.", () => {
+  it("User should be able deleting a task, only that task is deleted.", () => {
     render(<App />);
     const taskMsg1 = "Test one";
     const taskMsg2 = "Test two";
