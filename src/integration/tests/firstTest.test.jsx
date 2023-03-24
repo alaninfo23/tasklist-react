@@ -30,7 +30,7 @@ describe("Test project in the app task list.", () => {
     expect(tasks).toBeInTheDocument();
   });
 
-  it("User should be able to creating tasks with the same names", () => {
+  it("User should be able to create tasks with the same names", () => {
     render(<App />);
 
     const taskMsg = "Integration test";
@@ -80,9 +80,6 @@ describe("Test project in the app task list.", () => {
 
   it("User should be able to complete task", () => {
     render(<App />);
-
-  it("User should be able to complete task", () => {
-    render(<App />);
     const taskMsg = `testes de integração ${Date.now()}`;
     const input = screen.getByTestId("INPUT_TASK");
     userEvent.clear(input);
@@ -101,7 +98,7 @@ describe("Test project in the app task list.", () => {
     });
   });
 
-  it("User should be able deleting a task, only that task is deleted.", () => {
+  it("User should be able to delete only the task selected.", () => {
     render(<App />);
     const taskMsg1 = "Test one";
     const taskMsg2 = "Test two";
