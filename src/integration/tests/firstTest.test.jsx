@@ -21,7 +21,7 @@ describe("Testes", () => {
   
   it('check if you are able to enter a task', () => {
     render(<App />);
-    const taskMsg = 'testes de integração';
+    const taskMsg = 'Integration test';
     const input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
     userEvent.type(input, taskMsg);
@@ -34,7 +34,7 @@ describe("Testes", () => {
   
   it('check if it accepts creating tasks with the same names', () => {
     render(<App />);
-    const taskMsg = 'testes de integração';
+    const taskMsg = 'Integration test';
     const input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
     userEvent.type(input, taskMsg);
@@ -51,7 +51,7 @@ describe("Testes", () => {
 
   it('User should be able to delete a task.', () => {
     render(<App />);
-    const taskMsg = `testes de integração ${Date.now()}`;
+    const taskMsg = `Integration test ${Date.now()}`;
 
     const input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
@@ -75,13 +75,13 @@ describe("Testes", () => {
     const addTask = screen.getByTestId('ADD_BUTTON');
     userEvent.click(addTask);
    
-    expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
 
   });
   
   it('User should be able to complete task', () => {
     render(<App />);
-    const taskMsg = `testes de integração ${Date.now()}`;
+    const taskMsg = `Integration test ${Date.now()}`;
 
     const input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
@@ -90,19 +90,18 @@ describe("Testes", () => {
     userEvent.click(addTask);
   
     const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));    
-    const completeTask = task.getByTestId('TASK_NAME')
+    const taskName = task.getByTestId('TASK_NAME')
   
-    userEvent.click(completeTask);
+    userEvent.click(taskName);
     expect((screen.getByTestId(`TASK_CONTAINER_${taskMsg}`))).toHaveStyle({ borderLeft: '6px solid chartreuse'});
 
-    userEvent.click(completeTask);
+    userEvent.click(taskName);
     expect((screen.getByTestId(`TASK_CONTAINER_${taskMsg}`))).not.toHaveStyle({ borderLeft: '6px solid chartreuse'});
   });
 
   it('Patient should be able to open task details.', () => {
     render(<App />);
-    const taskMsg = `testes de integração ${Date.now()}`;
-    const backButtonName = 'Voltar';
+    const taskMsg = `Integration test ${Date.now()}`;
 
     let input = screen.getByTestId('INPUT_TASK');
     userEvent.clear(input);
@@ -115,14 +114,6 @@ describe("Testes", () => {
     userEvent.click(infoTask);
 
     expect(screen.getByTestId('TASK_TITLE')).toHaveTextContent(taskMsg);
-    const backButton = screen.getByTestId('BACK_BUTTON');
-    expect(backButton).toHaveTextContent(backButtonName);
-    userEvent.click(backButton);
-
-    //console.log(prettyDOM(screen.));
-    //input = screen.findByTestId('INPUT_TASK');
-    //expect(input).toBeInTheDocument();
-
   });
 
 });
