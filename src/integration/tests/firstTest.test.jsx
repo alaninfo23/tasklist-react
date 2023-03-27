@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import App from "../../App";
 import userEvent from "@testing-library/user-event";
-import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
 
 describe("Test project in the app task list.", () => {
   it("The user must be able to view the title correctly.", () => {
@@ -14,8 +13,8 @@ describe("Test project in the app task list.", () => {
 
   it("User should be able to see if add button name is correct.", () => {
     render(<App />);
-    const add_task = screen.getByTestId("ADD_BUTTON");
-    expect(add_task).toHaveTextContent("Adicionar");
+    const addTask = screen.getByTestId("ADD_BUTTON");
+    expect(addTask).toHaveTextContent("Adicionar");
   });
 
   it("User should able to enter a task", () => {
