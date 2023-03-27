@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import App from "../../App";
 import userEvent from "@testing-library/user-event";
+import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
 
 describe("Test project in the app task list.", () => {
   it("The user must be able to view the title correctly.", () => {
