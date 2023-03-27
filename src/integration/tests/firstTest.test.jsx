@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import App from "../../App";
 import userEvent from "@testing-library/user-event";
+import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
 
 describe("Test project in the app task list.", () => {
   it("The user must be able to view the title correctly.", () => {
@@ -73,9 +74,7 @@ describe("Test project in the app task list.", () => {
     userEvent.type(input, taskMsg);
     const addTask = screen.getByTestId("ADD_BUTTON");
     userEvent.click(addTask);
-    expect(
-      screen.queryByTestId(`TASK_CONTAINER_${taskMsg}`)
-    ).toBeInTheDocument();
+    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
   });
 
   it("User should be able to complete task", () => {
@@ -98,6 +97,27 @@ describe("Test project in the app task list.", () => {
     });
   });
 
+  it("The user should not see the text 'Sed ut perspiciatis unde...' in the details of a task with an empty title.", () => {
+    render(<App />);
+    const taskMsg = "";
+    const input = screen.getByTestId("INPUT_TASK");
+
+    userEvent.clear(input);
+    userEvent.type(input, taskMsg);
+    const addTask = screen.getByTestId("ADD_BUTTON");
+    userEvent.click(addTask);
+
+    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const infoTask = task.getByTestId("INFO_TASK_BUTTON");
+    userEvent.click(infoTask);
+
+    const details = screen.getByTestId("TASK_TITLE");
+
+    expect(details).toHaveTextContent(
+      "Sed ut perspiciatis unde omnis iste natus error sit volu doloremque laudantium, totam rem aperiam, eaque ipsa q veritatis et quasi architecto beatae vitae"
+    );
+  });
+
   it("User should be able to delete only the task selected.", () => {
     render(<App />);
     const taskMsg1 = "Test one";
@@ -116,9 +136,13 @@ describe("Test project in the app task list.", () => {
     const task1 = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`));
     const delTask1 = task1.getByTestId("DELETE_TASK");
     userEvent.click(delTask1);
-    
-    expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg1}`)).not.toBeInTheDocument();
-    expect(screen.queryByTestId(`TASK_CONTAINER_${taskMsg2}`)).toBeInTheDocument();
+
+    expect(
+      screen.queryByTestId(`TASK_CONTAINER_${taskMsg1}`)
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`TASK_CONTAINER_${taskMsg2}`)
+    ).toBeInTheDocument();
   });
 
   it("User should be able to open task details.", () => {
