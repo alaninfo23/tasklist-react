@@ -1,88 +1,88 @@
 import React, { useEffect, useState } from "react";
-import Axios from 'axios';
-import {v4 as uuidv4} from 'uuid';
+import Axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 import TaskDetails from "./components/TaskDetails";
-import "./css/App.css"
+import "./css/App.css";
 
 /* O componente APP é pai do componente que retorna
 o Tasks(componente filho) */
 const App = () => {
   const [tasks, setTasks] = useState([
     {
-        id: '1',
-        title: 'Estudar programação',
-        completed: false,
-    },    
-    {
-        id: '2',
-        title: 'Ler livros',
-        completed: true,
+      id: "1",
+      title: "Estudar programação",
+      completed: false,
     },
-    
+    {
+      id: "2",
+      title: "Ler livros",
+      completed: true,
+    },
   ]);
 
   useEffect(() => {
     const fetchTasks = async () => {
       const { data } = await Axios.get(
-        'https://jsonplaceholder.cypress.io/todos?_limit=10'
-        );
-        setTasks(data);
+        "https://jsonplaceholder.cypress.io/todos?_limit=10"
+      );
+      setTasks(data);
     };
     fetchTasks();
   }, []);
-  
+
   const handleTaskClick = (taskId) => {
-    const newTasks = tasks.map(task => {
-      if (task.id === taskId) return { ...task, completed: !task.completed}
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId) return { ...task, completed: !task.completed };
 
       return task;
     });
 
     setTasks(newTasks);
-  }
+  };
 
   const handleTaskAddition = (taskTitle) => {
-    const newTasks = [ 
+    const newTasks = [
       ...tasks,
-    {
-      title: taskTitle,
-      id: uuidv4,
-      completed: false,
-    },
-  ];
+      {
+        title: taskTitle,
+        id: uuidv4,
+        completed: false,
+      },
+    ];
     setTasks(newTasks);
   };
 
   const handleTaskDeletion = (taskId) => {
-    const newTasks = tasks.filter(task => task.id !== taskId )
+    const newTasks = tasks.filter((task) => task.id !== taskId);
 
     setTasks(newTasks);
-  }
+  };
 
   return (
     <Router>
-        <div className="container">
-            <Header />
-            <Route path='/' 
-            exact 
-            render={ () => (
-              <>
-                  <AddTask handleTaskAddition={handleTaskAddition} />
-                  <Tasks 
-                  tasks={tasks} 
-                  handleTaskClick={handleTaskClick}
-                  handleTaskDeletion={handleTaskDeletion}
-                  />
-              </>
+      <div className="container">
+        <Header />
+        <Route
+          path="/"
+          exact
+          render={() => (
+            <>
+              <AddTask handleTaskAddition={handleTaskAddition} />
+              <Tasks
+                tasks={tasks}
+                handleTaskClick={handleTaskClick}
+                handleTaskDeletion={handleTaskDeletion}
+              />
+            </>
           )}
-          />
-          <Route path='/:taskTitle' exact component={TaskDetails}/>
-        </div>
+        />
+        <Route path="/:taskTitle" exact component={TaskDetails} />
+      </div>
     </Router>
   );
 };
