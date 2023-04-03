@@ -98,7 +98,7 @@ describe("Test project in the app task list.", () => {
     });
   });
 
-  it("The user should not see the text 'Sed ut perspiciatis unde...' in the details of a task with an empty title.", () => {
+  it("User should not be able to open Info if task name is empty.", () => {
     render(<App />);
     const taskMsg = "";
     const input = screen.getByTestId("INPUT_TASK");
@@ -110,10 +110,7 @@ describe("Test project in the app task list.", () => {
     const infoTask = task.getByTestId("INFO_TASK_BUTTON");
     userEvent.click(infoTask);
 
-    const details = screen.getByTestId("TASK_TITLE");
-    expect(details).toHaveTextContent(
-      "Sed ut perspiciatis unde omnis iste natus error sit volu doloremque laudantium, totam rem aperiam, eaque ipsa q veritatis et quasi architecto beatae vitae"
-    );
+    expect(screen.queryByTestId("TASK_TITLE")).not.toBeInTheDocument();
   });
 
   it("User should be able to delete only the task selected.", () => {
