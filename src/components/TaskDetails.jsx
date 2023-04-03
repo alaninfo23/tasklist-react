@@ -16,7 +16,7 @@ const TaskDetails = () => {
     <>
       <div className="back-button-container">
         <Button testId="BACK_BUTTON" onClick={handleBackButtonClick}>
-          Voltar
+          Back
         </Button>
       </div>
       <div className="task-details-container" data-testid="TASK_TITLE">
