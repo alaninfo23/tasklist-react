@@ -67,7 +67,9 @@ describe("Test project in the app task list.", () => {
     userEvent.type(input, taskMsg);
     const add_task = screen.getByTestId(ADD_BUTTON_ID);
     userEvent.click(add_task);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const task = within(
+      screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)
+    );
     const delTask = task.getByTestId(DELETE_TASK_ID);
 
     userEvent.click(delTask);
@@ -85,7 +87,9 @@ describe("Test project in the app task list.", () => {
     const addTask = screen.getByTestId(ADD_BUTTON_ID);
 
     userEvent.click(addTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)
+    ).toBeInTheDocument();
   });
 
   it("User should be able to complete only the task selected", () => {
@@ -131,7 +135,9 @@ describe("Test project in the app task list.", () => {
     userEvent.type(input, taskMsg);
     const addTask = screen.getByTestId(ADD_BUTTON_ID);
     userEvent.click(addTask);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const task = within(
+      screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)
+    );
     const infoTask = task.getByTestId(INFO_TASK_BUTTON_ID);
     userEvent.click(infoTask);
 
@@ -150,7 +156,9 @@ describe("Test project in the app task list.", () => {
     userEvent.clear(input);
     userEvent.type(input, taskMsg2);
     userEvent.click(addTask);
-    const task1 = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`));
+    const task1 = within(
+      screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`)
+    );
     const delTask1 = task1.getByTestId(DELETE_TASK_ID);
     userEvent.click(delTask1);
 
@@ -171,11 +179,15 @@ describe("Test project in the app task list.", () => {
     userEvent.type(input, taskMsg);
     const addTask = screen.getByTestId(ADD_BUTTON_ID);
     userEvent.click(addTask);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const task = within(
+      screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)
+    );
     const infoTask = task.getByTestId(INFO_TASK_BUTTON_ID);
     userEvent.click(infoTask);
 
-    expect(screen.getByTestId(TASK_TITLE_ID)).toHaveTextContent(taskMsg);
+    expect(screen.getByTestId(TASK_TITLE_ID)).toHaveTextContent(
+      taskMsg
+    );
     expect(screen.getByTestId(BACK_BUTTON_ID)).toHaveTextContent(backButton);
   });
 });

@@ -5,3 +5,7 @@ export const TASK_TITLE_ID = 'TASK_TITLE';
 export const INFO_TASK_BUTTON_ID = 'INFO_TASK_BUTTON';
 export const BACK_BUTTON_ID = 'BACK_BUTTON';
 export const DELETE_TASK_ID = 'DELETE_TASK';
+<<<<<<< HEAD
+=======
+export const TASK_CONTAINER_ID = 'TASK_CONTAINER_';
+>>>>>>> Removed some variables that store input texts.
