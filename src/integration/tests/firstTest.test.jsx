@@ -86,7 +86,7 @@ describe("Test project in the app task list.", () => {
     let input = screen.getByTestId("INPUT_TASK");
     userEvent.clear(input);
     userEvent.type(input, taskMsg1);
-    let addTask = screen.getByTestId("ADD_BUTTON");
+    const addTask = screen.getByTestId("ADD_BUTTON");
     userEvent.click(addTask);
 
     userEvent.clear(input);
@@ -94,7 +94,7 @@ describe("Test project in the app task list.", () => {
     userEvent.click(addTask);
 
     const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`));
-    let completeTask = task.getByTestId("TASK_NAME");
+    const completeTask = task.getByTestId("TASK_NAME");
     
     userEvent.click(completeTask);
     expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`)).toHaveStyle({
