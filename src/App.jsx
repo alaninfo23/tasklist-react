@@ -50,7 +50,7 @@ const App = () => {
       ...tasks,
       {
         title: taskTitle,
-        id: uuidv4,
+        id: uuidv4(),
         completed: false,
       },
     ];
