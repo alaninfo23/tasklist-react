@@ -77,23 +77,37 @@ describe("Test project in the app task list.", () => {
     expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
   });
 
-  it("User should be able to complete task", () => {
+  it("User should be able to complete only the task selected", () => {
     render(<App />);
-    const taskMsg = `Integration test ${Date.now()}`;
+
+    const taskMsg1 = "Test one";
+    const taskMsg2 = "Test two";
+
     const input = screen.getByTestId("INPUT_TASK");
     userEvent.clear(input);
-    userEvent.type(input, taskMsg);
+    userEvent.type(input, taskMsg1);
     const addTask = screen.getByTestId("ADD_BUTTON");
     userEvent.click(addTask);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
-    const completeTask = task.getByTestId("TASK_NAME");
-    userEvent.click(completeTask);
 
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toHaveStyle({
+    userEvent.clear(input);
+    userEvent.type(input, taskMsg2);
+    userEvent.click(addTask);
+
+    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`));
+    const completeTask = task.getByTestId("TASK_NAME");
+    
+    userEvent.click(completeTask);
+    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`)).toHaveStyle({
       borderLeft: "6px solid chartreuse",
     });
+
     userEvent.click(completeTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).not.toHaveStyle({
+    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`)).not.toHaveStyle({
+      borderLeft: "6px solid chartreuse",
+    });
+
+    userEvent.click(completeTask);
+    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg2}`)).not.toHaveStyle({
       borderLeft: "6px solid chartreuse",
     });
   });
