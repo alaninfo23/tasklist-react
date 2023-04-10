@@ -148,10 +148,10 @@ describe("Test project in the app task list.", () => {
     render(<App />);
     const taskMsg1 = "Test one";
     const taskMsg2 = "Test two";
-    let input = screen.getByTestId(INPUT_TASK_ID);
+    const input = screen.getByTestId(INPUT_TASK_ID);
     userEvent.clear(input);
     userEvent.type(input, taskMsg1);
-    let addTask = screen.getByTestId(ADD_BUTTON_ID);
+    const addTask = screen.getByTestId(ADD_BUTTON_ID);
     userEvent.click(addTask);
     userEvent.clear(input);
     userEvent.type(input, taskMsg2);
