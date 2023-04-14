@@ -10,6 +10,8 @@ import {
   INFO_TASK_BUTTON_ID,
   BACK_BUTTON_ID,
   DELETE_TASK_ID,
+  TASK_CONTAINER_ID,
+  addTask
 } from "../helpers/testHelper";
 
 import { APP_TITLE, ADD_TASK } from "../strings/testStrings";
@@ -32,12 +34,7 @@ describe("Test project in the app task list.", () => {
 
   it("User should able to enter a task", () => {
     const taskMsg = `Integration test ${Date.now()}`;
-    const input = screen.getByTestId(INPUT_TASK_ID);
-    userEvent.clear(input);
-    userEvent.type(input, taskMsg);
-    const addTask = screen.getByTestId(ADD_BUTTON_ID);
-    userEvent.click(addTask);
-
+    addTask(taskMsg);
     const tasks = screen.getByText(taskMsg);
     expect(tasks).toBeInTheDocument();
   });
@@ -81,7 +78,7 @@ describe("Test project in the app task list.", () => {
     const addTask = screen.getByTestId(ADD_BUTTON_ID);
 
     userEvent.click(addTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`)).toBeInTheDocument();
+    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg))).toBeInTheDocument();
   });
 
   it("User should be able to complete only the task selected", () => {
