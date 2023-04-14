@@ -48,7 +48,7 @@ describe("Test project in the app task list.", () => {
   it("User should be able to delete a task.", () => {
     const taskMsg = `Integration test ${Date.now()}`;
     addTask(taskMsg);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const task = within(screen.getByTestId(TASK_CONTAINER_ID(taskMsg)));
     const delTask = task.getByTestId(DELETE_TASK_ID);
     userEvent.click(delTask);
     expect(
@@ -68,19 +68,19 @@ describe("Test project in the app task list.", () => {
     addTask(taskMsg1);
     addTask(taskMsg2);
 
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`));
+    const task = within(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1)));
     const completeTask = task.getByTestId(TASK_NAME_ID);
 
     userEvent.click(completeTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`)).toHaveStyle({
+    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1))).toHaveStyle({
       borderLeft: "6px solid chartreuse",
     });
     userEvent.click(completeTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`)).not.toHaveStyle({
+    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1))).not.toHaveStyle({
       borderLeft: "6px solid chartreuse",
     });
     userEvent.click(completeTask);
-    expect(screen.getByTestId(`TASK_CONTAINER_${taskMsg2}`)).not.toHaveStyle({
+    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg2))).not.toHaveStyle({
       borderLeft: "6px solid chartreuse",
     });
   });
@@ -88,7 +88,7 @@ describe("Test project in the app task list.", () => {
   it("User should not be able to open Info if task name is empty.", () => {
     const taskMsg = "";
     addTask(taskMsg);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const task = within(screen.getByTestId(TASK_CONTAINER_ID(taskMsg)));
     const infoTask = task.getByTestId(INFO_TASK_BUTTON_ID);
     userEvent.click(infoTask);
     expect(screen.queryByTestId(TASK_TITLE_ID)).not.toBeInTheDocument();
@@ -99,22 +99,22 @@ describe("Test project in the app task list.", () => {
     const taskMsg2 = "Test two";
     addTask(taskMsg1);
     addTask(taskMsg2);
-    const task1 = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg1}`));
+    const task1 = within(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1)));
     const delTask1 = task1.getByTestId(DELETE_TASK_ID);
     userEvent.click(delTask1);
 
     expect(
-      screen.queryByTestId(`TASK_CONTAINER_${taskMsg1}`)
+      screen.queryByTestId(TASK_CONTAINER_ID(taskMsg1))
     ).not.toBeInTheDocument();
     expect(
-      screen.getByTestId(`TASK_CONTAINER_${taskMsg2}`)
+      screen.getByTestId(TASK_CONTAINER_ID(taskMsg2))
     ).toBeInTheDocument();
   });
 
   it("User should be able to open task details.", () => {
     const taskMsg = `Integration test ${Date.now()}`;
     addTask(taskMsg);
-    const task = within(screen.getByTestId(`TASK_CONTAINER_${taskMsg}`));
+    const task = within(screen.getByTestId(TASK_CONTAINER_ID(taskMsg)));
     const infoTask = task.getByTestId(INFO_TASK_BUTTON_ID);
     userEvent.click(infoTask);
     const backButton = "Back";
