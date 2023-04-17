@@ -26,3 +26,12 @@ export function addTask2(taskMsg) {
     const addTask = screen.getByTestId(ADD_BUTTON_ID);
     userEvent.click(addTask);
 }
+
+export function checkTaskContainerStyle(taskMsg1, completeStyle) {
+    const taskContainer = screen.queryByTestId(TASK_CONTAINER_ID(taskMsg1));
+    if (completeStyle) {
+      expect(taskContainer).toHaveStyle('borderLeft: 6px solid chartreuse');
+    } else {
+      expect(taskContainer).not.toHaveStyle('borderLeft: 6px solid chartreuse');
+    }
+  }

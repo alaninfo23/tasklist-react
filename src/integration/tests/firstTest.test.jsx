@@ -12,6 +12,7 @@ import {
   DELETE_TASK_ID,
   TASK_CONTAINER_ID,
   addTask,
+  checkTaskContainerStyle,
 } from "../helpers/testHelper";
 
 import { APP_TITLE, ADD_TASK } from "../strings/testStrings";
@@ -72,17 +73,11 @@ describe("Test project in the app task list.", () => {
     const completeTask = task.getByTestId(TASK_NAME_ID);
 
     userEvent.click(completeTask);
-    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1))).toHaveStyle({
-      borderLeft: "6px solid chartreuse",
-    });
+    checkTaskContainerStyle(taskMsg1, true);
     userEvent.click(completeTask);
-    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1))).not.toHaveStyle({
-      borderLeft: "6px solid chartreuse",
-    });
+    checkTaskContainerStyle(taskMsg1, false);
     userEvent.click(completeTask);
-    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg2))).not.toHaveStyle({
-      borderLeft: "6px solid chartreuse",
-    });
+    checkTaskContainerStyle(taskMsg2, false);
   });
 
   it("User should not be able to open Info if task name is empty.", () => {
@@ -106,9 +101,7 @@ describe("Test project in the app task list.", () => {
     expect(
       screen.queryByTestId(TASK_CONTAINER_ID(taskMsg1))
     ).not.toBeInTheDocument();
-    expect(
-      screen.getByTestId(TASK_CONTAINER_ID(taskMsg2))
-    ).toBeInTheDocument();
+    expect(screen.getByTestId(TASK_CONTAINER_ID(taskMsg2))).toBeInTheDocument();
   });
 
   it("User should be able to open task details.", () => {
