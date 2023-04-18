@@ -12,7 +12,8 @@ import {
   DELETE_TASK_ID,
   TASK_CONTAINER_ID,
   addTask,
-  checkTaskContainerStyle,
+  completeTaskAndCheckTaskStyleBoolean,
+  clickCompleteTask,
 } from "../helpers/testHelper";
 
 import { APP_TITLE, ADD_TASK } from "../strings/testStrings";
@@ -69,15 +70,13 @@ describe("Test project in the app task list.", () => {
     addTask(taskMsg1);
     addTask(taskMsg2);
 
-    const task = within(screen.getByTestId(TASK_CONTAINER_ID(taskMsg1)));
-    const completeTask = task.getByTestId(TASK_NAME_ID);
-
-    userEvent.click(completeTask);
-    checkTaskContainerStyle(taskMsg1, true);
-    userEvent.click(completeTask);
-    checkTaskContainerStyle(taskMsg1, false);
-    userEvent.click(completeTask);
-    checkTaskContainerStyle(taskMsg2, false);
+    clickCompleteTask(taskMsg1);
+    completeTaskAndCheckTaskStyleBoolean(taskMsg1, true);
+    completeTaskAndCheckTaskStyleBoolean(taskMsg2, false);
+    clickCompleteTask(taskMsg1);
+    completeTaskAndCheckTaskStyleBoolean(taskMsg1, false);
+    completeTaskAndCheckTaskStyleBoolean(taskMsg2, false);
+    
   });
 
   it("User should not be able to open Info if task name is empty.", () => {
